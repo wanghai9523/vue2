@@ -36,6 +36,7 @@
       </template>
     </Slot>
     <button>click</button>
+    <ImgSize></ImgSize>
   </div>
 </template>
 
@@ -45,6 +46,7 @@ import Computed from './components/computed.vue';
 import Watch from './components/watch.vue';
 import Emit from './components/emit.vue';
 import Slot from './components/slot.vue';
+import ImgSize from './components/imgSize.vue';
 
 export default {
   name: 'App',
@@ -53,7 +55,8 @@ export default {
     Watch,
     Emit,
     Slot,
-    TitleComponent
+    TitleComponent,
+    ImgSize
   },
   data(){
     return {
