@@ -1,5 +1,6 @@
 import axios from "axios";
 const createRequest = function({interceptors, ...args}){
+    console.log('args', args);
     const http = axios.create({
         baseURL: '',//接口前缀
         ...args,
@@ -18,10 +19,11 @@ const getRequest = (contentType) => {
         interceptors: {
             request(config) {
                 console.log('reqqqqqqqqqqqq', config);
-                config.data = {unused: 0}
+                // config.data = { a:1, b:2, ...config.data}
                 if(config?.method === 'post'){
                     if(contentType === 'from') {
                         config.headers['content-type'] = 'application/x-www-from-urlencode';
+                        // config.data = JSON.stringify(config.data)
                     }else if ( contentType === 'json' ) {
                         config.headers['content-type'] = 'application/json;charset=utf-8';
                     }
