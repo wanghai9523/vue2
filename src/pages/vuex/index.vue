@@ -1,0 +1,86 @@
+<template>
+    <div class="container">
+        <router-view :style="{ marginTop: '1rem' }"></router-view>
+        <div>{{ message }}</div>
+        <button @click="jumpToAbout">jumpToAbout</button>
+        &emsp;
+        <button @click="jumpToHome">jumpToHome</button>
+        <br />
+        <button class="logBtn" @click="log">log</button>
+    </div>
+</template>
+
+<script>
+ import {mapGetters} from 'vuex';
+export default {
+    name: "vueX",
+    // async beforeRouteUpdate(to, from) {
+    //     // 对路由变化做出响应...
+    //     // this.userData = await fetchUser(to.params.id)
+    //     console.log('zzz', to, from);
+    //     alert(to, from)
+    // },
+    computed:{
+        message:function(){
+            console.log('111', this.$store.state.message);
+        //不建议
+        return this.$store.state.message;
+      }
+    },
+    created() {
+        console.log(this.$store);
+        // eslint-disable-next-line no-undef
+        console.log('namess', namess);
+        // this.$watch(
+        //     () => this.$route.params,
+        //     (toParams, previousParams) => {
+        //         // 对路由变化做出响应...
+        //         console.log(toParams, previousParams);
+        //     }
+        // )
+    },
+    methods: {
+        jumpToAbout(arg) {
+            this.$router.push(!isNaN(arg) ? `/about/${arg}?def=555&ggg=666` : '/about')
+        },
+        jumpToHome(arg) {
+            console.log(arg);
+            // this.$router.push(!isNaN(arg) ? `/home/${arg}?abc=123&fff=444` : '/home');
+            this.$router.push({
+                path: '/home',
+                // name: 'NotFound',
+                // 保留当前路径并删除第一个字符，以避免目标 URL 以 `//` 开头。
+                params: { pathMatch: this.$route.path.substring(1).split('/') },
+                // 保留现有的查询和 hash 值，如果有的话
+                query: this.$route.query,
+                hash: this.$route.hash,
+            })
+        },
+
+        log() {
+            console.log(this.$store);
+            // this.$store.getters.getMessage();
+            // console.log(this.$store.getters.getMessage());
+            console.log(...mapGetters(['getMessage']));
+        }
+    }
+
+}
+</script>
+
+<style lang="scss" scoped>
+.container {
+    width: 100%;
+    min-height: 100vh;
+
+    a,
+    div {
+        font-size: 0.2rem;
+    }
+
+    .logBtn {
+        width: 5rem;
+        height: 3rem;
+    }
+}
+</style>
